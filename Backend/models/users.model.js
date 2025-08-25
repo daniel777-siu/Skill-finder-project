@@ -15,6 +15,6 @@ module.exports = {
                 if (err) throw cb(err)
                     cb(null, results)
             }
-        )
+        );
     }
 }; 

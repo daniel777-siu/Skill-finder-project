@@ -10,14 +10,13 @@ module.exports = {
         );
     },
     getOne(id,cb){
-        db.connectDataBase()
         db.query('SELECT * FROM teams WHERE id= ?', 
             [id],
             (err, results) =>{
                 if (err) throw cb(err)
-                    cb(null, results)
+                cb(null, results)
             }
-        )
+        );
         
     }
 }; 
