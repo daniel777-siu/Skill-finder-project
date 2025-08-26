@@ -6,7 +6,10 @@ const authMiddleware = require('../middlewares/authMiddleware');
 
 router.use(authMiddleware);
 
-router.get('/', teamsController.getTeams);
-router.get('/:id', teamsController.getTeam);
+router.get('/teams', teamsController.getTeams);
+router.get('/teams/:id', teamsController.getTeam);
+router.post('/teams', teamsController.createTeam);
+router.put('/teams/:id', teamsController.updateTeam);
+router.delete('/teams/:id', teamsController.deleteTeam);
 
 module.exports = router;
