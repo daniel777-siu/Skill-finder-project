@@ -18,5 +18,26 @@ module.exports = {
             }
         );
         
+    },
+
+    create(team, cb) {
+        db.query('INSERT INTO teams ( team_name, description) VALUES ?,?', [ team.team_name, team.description],
+            (err, result) => {
+            if (err) return cb(err);
+            cb(null, result);
+        });
+    },
+    update(id, team, cb) {
+        db.query('UPDATE teams SET team_name = ?, description = ? WHERE id = ?', [team.team_name, team.description],
+            (err, result) => {
+            if (err) return cb(err);
+            cb(null, result);
+        });
+    },
+    delete(id, cb) {
+        db.query('DELETE FROM teams WHERE id = ?', [id], (err, result) => {
+            if (err) return cb(err);
+            cb(null, result);
+        });
     }
 }; 
