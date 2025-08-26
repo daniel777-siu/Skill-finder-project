@@ -1,10 +1,25 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const cookieParser = require("cookie-parser");
+
+const app = express();
+
+app.use(cookieParser());
+app.use(cors({
+    origin: "http://localhost:5173",
+  credentials: true    
+}));
+app.use(express.json());
+
 
 const usersRoutes = require('./routes/users.router');
-const app = express()
+const teamsRoutes = require ('./routes/teams.router');
+const authRoutes = require('./routes/auth.router')
+
 
 app.use('/users', usersRoutes);
+app.use('/teams', teamsRoutes);
+app.use('/', authRoutes);
 
-module.exports = app
+module.exports = app;
