@@ -5,7 +5,7 @@ function authMiddleware(req, res, next) {
   const token = req.cookies.token;
   if (!token) {
     return res.status(401).json({ message: "No autenticado" });
-  }
+  };
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -27,7 +27,7 @@ function authMiddleware(req, res, next) {
     next();
   } catch (err) {
     return res.status(401).json({ message: "Token inválido o expirado" });
-  }
-}
+  };
+};
 
-module.exports = authMiddleware();
+module.exports = authMiddleware;
