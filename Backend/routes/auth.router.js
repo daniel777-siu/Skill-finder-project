@@ -9,4 +9,15 @@ router.post("/login", authController.loginUser);
 
 
 router.use(authMiddleware);
+
+router.post("/logout", (req, res) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+  });
+  return res.json({ message: "Sesión cerrada correctamente" });
+});
+
+
 module.exports = router;
