@@ -13,4 +13,5 @@ router.get('/users/:id', usersController.getUser);
 // Crear usuarios: solo admin
 router.post('/users', requireRole('admin'), usersController.createUser);
 
+
 module.exports = router;

@@ -20,15 +20,17 @@ module.exports = {
         
     },
 
-    create(team, cb) {
-        db.query('INSERT INTO teams ( team_name, description) VALUES ?,?', [ team.team_name, team.description],
+    create(data, cb) {
+        db.query('INSERT INTO teams ( team_name, description) VALUES (?,?)', [ data.team_name, data.description],
             (err, result) => {
             if (err) return cb(err);
             cb(null, result);
         });
     },
-    update(id, team, cb) {
-        db.query('UPDATE teams SET team_name = ?, description = ? WHERE id = ?', [team.team_name, team.description],
+
+    update(id, data, cb) {
+        db.query('UPDATE teams SET team_name = ?, description = ? WHERE id = ?', [data.team_name, data.description, id],
+
             (err, result) => {
             if (err) return cb(err);
             cb(null, result);

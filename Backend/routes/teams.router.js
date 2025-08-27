@@ -8,5 +8,8 @@ router.use(authMiddleware);
 
 router.get('/teams', teamsController.getTeams);
 router.get('/teams/:id', teamsController.getTeam);
+router.post('/teams', teamsController.createTeam);
+router.put('/teams/:id', teamsController.updateTeam);
+router.delete('/teams/:id', teamsController.deleteTeam);
 
 module.exports = router;
