@@ -2,12 +2,13 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const cookieParser = require("cookie-parser");
+require('dotenv').config();
 
 const app = express();
 
 app.use(cookieParser());
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: process.env.FRON_URL,
   credentials: true    
 }));
 app.use(express.json());
