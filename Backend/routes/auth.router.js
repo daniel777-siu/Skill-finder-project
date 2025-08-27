@@ -9,6 +9,7 @@ router.post("/login", authController.loginUser);
 
 
 router.use(authMiddleware);
+
 router.get("/me", authMiddleware, (req, res) => {
   res.json({
     id: req.user.id,
@@ -18,6 +19,7 @@ router.get("/me", authMiddleware, (req, res) => {
 });
 
 router.post("/register", requireRole('admin'),authController.registerUser);
+
 
 router.post("/logout", (req, res) => {
   res.clearCookie("token", {
