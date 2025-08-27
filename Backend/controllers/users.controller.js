@@ -89,4 +89,12 @@ exports.updateAdmin = async (req,res) => {
     }
     }
   );
-}
+};
+
+exports.deleteUser = (req,res) =>{
+    const id = req.params.id;
+    client.delete(id, (err) =>{
+        if (err) return res.status(500).json({error : err.message});
+        res.json({message : 'Usuario eliminado correctamente'});
+    });
+};

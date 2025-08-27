@@ -13,6 +13,7 @@ router.put('/users/:id', usersController.updateCoders);
 router.put('/users/password/:id', usersController.changePassword)
 // Crear usuarios: solo admin
 router.put('/user/:id', requireRole('admin'), usersController.updateAdmin);
+router.delete('/user/:id',requireRole('admin'), usersController.deleteUser);
 
 
 module.exports = router;

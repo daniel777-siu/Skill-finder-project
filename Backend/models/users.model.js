@@ -43,5 +43,14 @@ module.exports = {
                 cb(null, result);
             }
         );
+    },
+    delete(id, cb){
+        db.query('DELETE FROM users WHERE id = ?',
+            [id],
+            (err, result) => {
+                if (err) return cb(err, null);
+                cb(null, result)
+            }
+        )
     }
 }; 
