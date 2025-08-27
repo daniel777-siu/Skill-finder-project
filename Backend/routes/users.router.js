@@ -7,13 +7,13 @@ const requireRole = require('../middlewares/roleMiddleware');
 router.use(authMiddleware);
 
 // Listar/obtener usuarios: cualquier autenticado puede ver perfiles (sin password)
-router.get('/users', usersController.getUsers);
-router.get('/users/:id', usersController.getUser);
-router.put('/users/:id', usersController.updateCoders);
-router.put('/users/password/:id', usersController.changePassword)
+router.get('/', usersController.getUsers);
+router.get('/:id', usersController.getUser);
+router.put('/:id', usersController.updateCoders);
+router.put('/password/:id', usersController.changePassword)
 // Crear usuarios: solo admin
-router.put('/user/:id', requireRole('admin'), usersController.updateAdmin);
-router.delete('/user/:id',requireRole('admin'), usersController.deleteUser);
+router.put('/:id', requireRole('admin'), usersController.updateAdmin);
+router.delete('/:id',requireRole('admin'), usersController.deleteUser);
 
 
 module.exports = router;

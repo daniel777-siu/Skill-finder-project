@@ -5,8 +5,8 @@ const languaguesController = require('../controllers/languagues.controller')
 
 router.use(authMiddleware);
 
-router.get('/languagues', languaguesController.showLanguagues);
-router.get('languagues/:id', languaguesController.userLanguagues);
-router.post('/languagues', languaguesController.enrollLanguague);
+router.get('/', languaguesController.showLanguagues);
+router.get('/:id', languaguesController.userLanguagues);
+router.post('/', languaguesController.enrollLanguague);
 
 module.exports = router;
