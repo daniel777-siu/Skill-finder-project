@@ -36,8 +36,8 @@ module.exports = {
         )
     },
     adminUpdate(id, data, modifiedData, cb){
-        db.query('UPDATE users SET name =?, cohort = ?, email = ?, phone = ?, place_id = ?, disponibility = ? , password = ?, schedule = ?, role = ?, clan_id = ?, description = ?, english_level = ? WHERE id = ?',
-            [data.name, data.cohort, data.email, data.phone, modifiedData.place_id, data.disponibility, modifiedData.password, data.schedule, data.role, modifiedData.clan_id, data.description, data.english_level],
+        db.query('UPDATE users SET name =?, cohort = ?, email = ?, phone = ?, place_id = ?, disponibility = ? , schedule = ?, role = ?, clan_id = ?, description = ?, english_level = ? WHERE id = ?',
+            [data.name, data.cohort, data.email, data.phone, modifiedData.place_id, data.disponibility, data.schedule, data.role, modifiedData.clan_id, data.description, data.english_level],
             (err, result) => {
                 if (err) return cb(err);
                 cb(null, result);

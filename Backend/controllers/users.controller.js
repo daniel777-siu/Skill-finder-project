@@ -56,7 +56,6 @@ exports.changePassword = async(req, res) =>{
 exports.updateAdmin = async (req,res) => {
   const id = req.params.id;
   const data = req.body;
-  const hashedPassword = await hashPassword(data.password)
   db.query('SELECT id FROM places WHERE city = ?',
     [data.place],
     (err, results) => {
@@ -70,7 +69,6 @@ exports.updateAdmin = async (req,res) => {
             if (results.length > 0) {
             const clan_id = results[0].id;
               const modifiedData = {
-                password : hashedPassword,
                 place_id : place_id,
                 clan_id : clan_id
               };
