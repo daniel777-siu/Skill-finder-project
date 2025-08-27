@@ -8,5 +8,6 @@ router.use(authMiddleware);
 
 router.get('/teams', teamsController.getTeams);
 router.get('/teams/:id', teamsController.getTeam);
+router.post('/teams/join', teamsController.joinTeam);
 
 module.exports = router;

@@ -15,3 +15,12 @@ exports.getTeam = (req, res) =>{
         res.json(results)
     })
 }
+
+exports.joinTeam = (req, res) => {
+    const data = req.body;
+    client.joinTeam(data,(err, results) =>{
+        if (err) throw(err);
+        res.json(results)
+    })
+
+}

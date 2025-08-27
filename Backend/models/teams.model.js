@@ -39,5 +39,14 @@ module.exports = {
             if (err) return cb(err);
             cb(null, result);
         });
+    },
+    joinTeam(data, cb){
+        db.query('INSERT INTO user_team(team_id,user_id,team_role) VALUES (?,?,?)',
+            [data.team_id, data.user_id, data.team_role],
+            (err, result) => {
+                if (err) return cb(err, null);
+                cb(null, result);
+            }
+        );
     }
 }; 
