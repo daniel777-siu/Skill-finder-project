@@ -5,9 +5,10 @@ const authMiddleware = require("../middlewares/authMiddleware");
 
 
 router.post("/login", authController.loginUser);
-router.post("/register", authController.registerUser)
+
 
 router.use(authMiddleware);
+router.post("/register", authController.registerUser)
 
 router.post("/logout", (req, res) => {
   res.clearCookie("token", {
