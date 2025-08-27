@@ -14,4 +14,5 @@ router.put('/users/password/:id', usersController.changePassword)
 // Crear usuarios: solo admin
 router.put('/user/:id', requireRole('admin'), usersController.updateAdmin);
 
+
 module.exports = router;
