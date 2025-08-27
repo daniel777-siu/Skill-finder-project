@@ -17,28 +17,40 @@ module.exports = {
             }
         );
     },
-
-    create(user, cb){
-    db.query('INSERT INTO users ( name, cohort, email, phone, disponibility, password, schedule, role) VALUES ?,?,?,?,?,?,?,?', [ user.name, user.cohort, user.email, user.phone, user.disponibility, user.password, user.schedule, user.password],
-        (err, result) => {
-        if (err) return cb(err);
-        cb(null, result);
-    });
-},
-
-    update(id, user, cb) {
-    db.query('UPDATE users SET name = ?, cohort = ?, email = ?, phone = ?, disponibility = ?, password = ?, schedule = ?, role = ? WHERE id = ?', [user.name, user.cohort, user.email, user.phone, user.disponibility, user.password, user.schedule, user.password],
-        (err, result) => {
-        if (err) return cb(err);
-        cb(null, result);
-    });
+    update (id, data, cb){
+        db.query("UPDATE users SET name =?, email = ?, phone = ?, disponibility = ? , description = ? WHERE id = ?",
+            [data.name,data.email,data.phone ?? null,data.disponibility,data.description ?? null,id],
+            (err, results) =>{
+                if (err) return cb(err, null);
+                cb(null, results);
+            }
+        );
     },
-
-    delete(id, cb) {
-        db.query('DELETE FROM users WHERE id = ?', [id], (err, result) => {
-            if (err) return cb(err);
-            cb(null, result);
-        });
+    changePassword(id,newPassword, cb){
+        db.query('UPDATE users SET password = ? WHERE id =',
+            [newPassword, id],
+            (err, results) =>{
+                if (err) return cb(err, null);
+                cb(null, results)
+            }
+        )
+    },
+    adminUpdate(id, data, modifiedData, cb){
+        db.query('UPDATE users SET name =?, cohort = ?, email = ?, phone = ?, place_id = ?, disponibility = ? , schedule = ?, role = ?, clan_id = ?, description = ?, english_level = ? WHERE id = ?',
+            [data.name, data.cohort, data.email, data.phone, modifiedData.place_id, data.disponibility, data.schedule, data.role, modifiedData.clan_id, data.description, data.english_level],
+            (err, result) => {
+                if (err) return cb(err);
+                cb(null, result);
+            }
+        );
+    },
+    delete(id, cb){
+        db.query('DELETE FROM users WHERE id = ?',
+            [id],
+            (err, result) => {
+                if (err) return cb(err, null);
+                cb(null, result)
+            }
+        )
     }
-
 }; 
