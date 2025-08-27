@@ -6,7 +6,7 @@ const authMiddleware = require('../middlewares/authMiddleware');
 
 router.use(authMiddleware);
 
-router.get('/', teamsController.getTeams);
-router.get('/:id', teamsController.getTeam);
+router.get('/teams', teamsController.getTeams);
+router.get('/teams/:id', teamsController.getTeam);
 
 module.exports = router;
