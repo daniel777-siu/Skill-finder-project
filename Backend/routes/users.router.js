@@ -9,8 +9,9 @@ router.use(authMiddleware);
 // Listar/obtener usuarios: cualquier autenticado puede ver perfiles (sin password)
 router.get('/users', usersController.getUsers);
 router.get('/users/:id', usersController.getUser);
-
+router.put('/users/:id', usersController.updateCoders);
+router.put('/users/password/:id', usersController.changePassword)
 // Crear usuarios: solo admin
-router.post('/users', requireRole('admin'), usersController.createUser);
+router.put('/user/:id', requireRole('admin'), usersController.updateAdmin);
 
 module.exports = router;
