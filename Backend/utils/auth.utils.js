@@ -1,6 +1,5 @@
 const bcrypt = require ('bcrypt');
 const jwt = require ('jsonwebtoken');
-const cookie = require ('cookie');
 require ('dotenv').config();
 
 const JWT_SECRET = process.env.JWT_SECRET
@@ -24,8 +23,8 @@ function generateToken(user){
     );
 };
 
-function createAuthCookie(token){
-    return cookie.serialize("auth_token", token, {
+function createAuthCookie(res, token){
+    res.cookie("token", token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         sameSite: 'strict',

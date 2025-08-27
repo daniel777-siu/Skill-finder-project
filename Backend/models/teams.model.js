@@ -27,8 +27,10 @@ module.exports = {
             cb(null, result);
         });
     },
+
     update(id, data, cb) {
         db.query('UPDATE teams SET team_name = ?, description = ? WHERE id = ?', [data.team_name, data.description, id],
+
             (err, result) => {
             if (err) return cb(err);
             cb(null, result);
