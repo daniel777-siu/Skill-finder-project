@@ -50,5 +50,14 @@ module.exports = {
                 cb(null, result);
             }
         );
+    },
+    showTeamUsers(id, cb){
+        db.query('SELECT u.id AS user_id, u.name, ut.team_role, t.id AS team_id, t.team_name AS project_name FROM user_team ut JOIN users u ON u.id = ut.user_id JOIN teams t ON t.id = ut.team_id WHERE t.id = ?',
+            [id],
+            (err, result) =>{
+                if (err) return cb(err, null);
+                cb(null, result);
+            }
+        );
     }
 }; 

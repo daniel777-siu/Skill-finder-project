@@ -43,10 +43,6 @@ exports.deleteTeam = (req,res) =>{
 
 exports.joinTeam = (req, res) => {
     const data = req.body;
-    client.joinTeam(data,(err, results) =>{
-        if (err) throw(err);
-        res.json(results)
-    });
     client.joinTeam(data,(err) =>{
         if (err) return res.status(500).json({error : err.message});
         res.json({message : 'Te uniste al equipo con exito'});
@@ -64,7 +60,7 @@ exports.createTeam = (req, res) =>{
 
 exports.updateTeam = (req, res) =>{
     const data = req.body;
-    const id = req.params;
+    const id = req.params.id;
     client.update(id, data, (err) =>{
         if (err) return res.status(500).json({error: err.message});
         res.json({message: 'equipo actualizado correctamente'});
@@ -72,9 +68,17 @@ exports.updateTeam = (req, res) =>{
 };
 
 exports.deleteTeam = (req,res) =>{
-    const id = req.params;
+    const id = req.params.id;
     client.delete(id, (err) =>{
         if (err) return res.status(500).json({error : err.message});
         res.json({message : 'equipo eliminado correctamente'});
+    });
+};
+
+exports.showTeamUsers = (req, res) => {
+    const id = req.params.id;
+    client.showTeamUsers(id, (err, results) => {
+        if (err) throw (err);
+        res.json(results)
     });
 };

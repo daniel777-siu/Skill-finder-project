@@ -37,7 +37,7 @@ module.exports = {
     },
     adminUpdate(id, data, modifiedData, cb){
         db.query('UPDATE users SET name =?, cohort = ?, email = ?, phone = ?, place_id = ?, disponibility = ? , schedule = ?, role = ?, clan_id = ?, description = ?, english_level = ? WHERE id = ?',
-            [data.name, data.cohort, data.email, data.phone, modifiedData.place_id, data.disponibility, data.schedule, data.role, modifiedData.clan_id, data.description, data.english_level],
+            [data.name, data.cohort, data.email, data.phone, modifiedData.place_id, data.disponibility, data.schedule, data.role, modifiedData.clan_id, data.description, data.english_level, id],
             (err, result) => {
                 if (err) return cb(err);
                 cb(null, result);
@@ -52,5 +52,14 @@ module.exports = {
                 cb(null, result)
             }
         )
+    },
+    showUserTeams(id, cb){
+        db.query('SELECT u.id AS user_id, u.name, ut.team_role, t.id AS team_id, t.team_name AS project_name FROM user_team ut JOIN users u ON u.id = ut.user_id JOIN teams t ON t.id = ut.team_id WHERE u.id = ?',
+            [id],
+            (err, result) => {
+                if (err) return cb(err, null);
+                cb(null, result);
+            }
+        );
     }
 }; 

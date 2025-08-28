@@ -1,5 +1,6 @@
 const client = require('../models/users.model');
-const { comparePassword, hashPassword } = require('../utils/auth.utils');
+const { comparePassword } = require('../utils/auth.utils');
+const generalClient = require('../models/general.model')
 
 
 exports.getUsers = (req,res)=>{
@@ -56,43 +57,45 @@ exports.changePassword = async(req, res) =>{
 exports.updateAdmin = async (req,res) => {
   const id = req.params.id;
   const data = req.body;
-  db.query('SELECT id FROM places WHERE city = ?',
-    [data.place],
-    (err, results) => {
-      if (err) return (err);
-       if (results.length > 0) {
-        const place_id = results[0].id; 
-        db.query('SELECT id FROM clans WHERE clan_name = ?',
-          [data.clan],
-          (err, results) => {
-            if (err) return (err);
-            if (results.length > 0) {
-            const clan_id = results[0].id;
-              const modifiedData = {
-                place_id : place_id,
-                clan_id : clan_id
-              };
-                client.updateAdmin(id, data, modifiedData, (err, result) =>{
+  generalClient.cityId(data, (err, cityResults) => {
+      if (err) return res.status(500).json({ error: err.message });
+      if (cityResults.length === 0) return res.status(404).json({ error: "Ciudad no encontrada" });
+  
+      const placeId = cityResults[0].id;
+  
+    
+      generalClient.clanId(data, (err, clanResults) => {
+        if (err) return res.status(500).json({ error: err.message });
+        if (clanResults.length === 0) return res.status(404).json({ error: "Clan no encontrado" });
+  
+        const clanId = clanResults[0].id;
+                const modifiedData = {
+                  place_id : placeId,
+                  clan_id : clanId
+                };
+                client.adminUpdate(id, data, modifiedData, (err, result) =>{
                 if (err) return res.status(500).json({error: err.message});
                 res.json({message : "Usuario actualizado con exito"});
               });
-              
-            } else {
-              console.log("No se encontró el clan");
             }
-          }
-        );
-    } else {
-      console.log("No se encontró el clan");
-    }
-    }
-  );
-};
+          );
+        }
+      );
+    };
+        
 
 exports.deleteUser = (req,res) =>{
     const id = req.params.id;
     client.delete(id, (err) =>{
         if (err) return res.status(500).json({error : err.message});
         res.json({message : 'Usuario eliminado correctamente'});
+    });
+};
+
+exports.showUserTeams = (req, res) => {
+    const id = req.params.id;
+    client.showUserTeams(id, (err, results) => {
+        if (err) throw (err);
+        res.json(results)
     });
 };
