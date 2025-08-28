@@ -16,31 +16,6 @@ exports.getTeam = (req, res) =>{
     });
 };
 
-exports.createTeam = (req, res) =>{
-    const data = req.body;
-    client.create(data, (err) =>{
-        if (err) return res.status(500).json({ error: err.message });
-        res.json({ message: 'equipo creado exitosamente'});
-    });
-};
-
-exports.updateTeam = (req, res) =>{
-    const data = req.body;
-    const id = req.params.id;
-    client.update(id, data, (err) =>{
-        if (err) return res.status(500).json({error: err.message});
-        res.json({message: 'equipo actualizado correctamente'});
-    });
-};
-
-exports.deleteTeam = (req,res) =>{
-    const id = req.params.id;
-    client.delete(id, (err) =>{
-        if (err) return res.status(500).json({error : err.message});
-        res.json({message : 'equipo eliminado correctamente'});
-    });
-};
-
 exports.joinTeam = (req, res) => {
     const data = req.body;
     client.joinTeam(data,(err) =>{
