@@ -52,9 +52,18 @@ exports.joinTeam = (req, res) => {
 
 exports.createTeam = (req, res) =>{
     const data = req.body;
-    client.create(data, (err) =>{
+    client.create(data, (err, result) =>{
         if (err) return res.status(500).json({ error: err.message });
-        res.json({ message: 'equipo creado exitosamente'});
+        const teamId = result.insertId;
+        const joinData = {
+            team_id : teamId,
+            user_id : data.user_id,
+            team_role: "leader"
+        }
+        client.joinTeam(joinData, (err) => {
+            if (err) res.status(500).json({error : err.message});
+        })
+        res.json({ message: `equipo creado exitosamente`});
     });
 };
 
