@@ -17,7 +17,7 @@ router.get("/me", authMiddleware, (req, res) => {
   });
 });
 
-router.post("/register", requireRole('admin'),authController.registerUser);
+router.post("/register", requireRole('admin'), authController.registerUser);
 
 router.post("/logout", (req, res) => {
   res.clearCookie("token", {

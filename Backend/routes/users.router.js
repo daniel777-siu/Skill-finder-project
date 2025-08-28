@@ -10,9 +10,10 @@ router.use(authMiddleware);
 router.get('/', usersController.getUsers);
 router.get('/:id', usersController.getUser);
 router.put('/:id', usersController.updateCoders);
-router.put('/password/:id', usersController.changePassword)
+router.put('/password/:id', usersController.changePassword);
+router.get('/teams/:id', usersController.showUserTeams);
 // Crear usuarios: solo admin
-router.put('/:id', requireRole('admin'), usersController.updateAdmin);
+router.put('/admin/:id', requireRole('admin'), usersController.updateAdmin);
 router.delete('/:id',requireRole('admin'), usersController.deleteUser);
 
 

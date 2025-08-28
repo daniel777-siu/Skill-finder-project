@@ -12,5 +12,7 @@ router.post('/join', teamsController.joinTeam);
 router.post('/', teamsController.createTeam);
 router.put('/:id', teamsController.updateTeam);
 router.delete('/:id', teamsController.deleteTeam);
+router.get('/users/:id', teamsController.showTeamUsers);
+
 
 module.exports = router;
