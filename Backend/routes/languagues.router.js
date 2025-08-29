@@ -8,6 +8,6 @@ router.use(authMiddleware);
 router.get('/', languaguesController.showLanguagues);
 router.get('/:id', languaguesController.userLanguagues);
 router.post('/', languaguesController.enrollLanguague);
-router.delete("/delete", languaguesController.quitLanguague)
+router.delete("/delete", languaguesController.quitLanguague);
 
 module.exports = router;
