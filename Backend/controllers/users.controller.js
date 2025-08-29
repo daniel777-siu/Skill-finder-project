@@ -1,5 +1,5 @@
 const client = require('../models/users.model');
-const { comparePassword } = require('../utils/auth.utils');
+const { comparePassword,hashPassword } = require('../utils/auth.utils');
 const generalClient = require('../models/general.model')
 
 
@@ -45,8 +45,17 @@ exports.changePassword = async(req, res) =>{
     }
     const validPassword = await comparePassword(password, user.password);
     if (!validPassword) return res.status(401).json({ message: "Credenciales inválidas (password)" });
-    client.changePassword(id, newPassword, (err) =>{
-      if (err) res.status(500).json({error : err.message});
+    const hashedNewPassword = await hashPassword(newPassword)
+    client.changePassword(id, hashedNewPassword, (err, result) =>{
+      if (err) {
+        return res.status(500).json({ message: "Error al cambiar contraseña" });
+      }
+
+      if (result.affectedRows === 0) {
+        return res.status(400).json({ message: "No se pudo actualizar la contraseña" });
+      }
+
+      res.json({ message: "Contraseña actualizada correctamente" });
       res.json({message : 'Contraseña actualizada con exito'})
     })
   });

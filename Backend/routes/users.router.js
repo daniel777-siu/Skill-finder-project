@@ -4,7 +4,7 @@ const usersController = require ('../controllers/users.controller');
 const authMiddleware = require('../middlewares/authMiddleware');
 const requireRole = require('../middlewares/roleMiddleware');
 
-router.use(authMiddleware);
+// router.use(authMiddleware);
 
 // Listar/obtener usuarios: cualquier autenticado puede ver perfiles (sin password)
 router.get('/', usersController.getUsers);

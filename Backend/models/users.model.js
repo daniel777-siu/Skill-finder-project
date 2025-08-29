@@ -27,11 +27,11 @@ module.exports = {
         );
     },
     changePassword(id,newPassword, cb){
-        db.query('UPDATE users SET password = ? WHERE id =',
+        db.query('UPDATE users SET password = ? WHERE id = ?',
             [newPassword, id],
             (err, results) =>{
                 if (err) return cb(err, null);
-                cb(null, results)
+                cb(null, results);
             }
         )
     },
