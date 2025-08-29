@@ -25,6 +25,15 @@ module.exports = {
                 if (err) return cb(err, null);
                 cb(null, results)
             }
-        )
+        );
+    },
+    quitLanguague(data, cb){
+        db.query('DELETE FROM user_languague WHERE user_id = ? AND languague_id = ?',
+            [data.user_id, data.languague_id],
+            (err, result) => {
+                if (err) return cb(err, null);
+                cb(null, result)
+            }
+        );
     }
 }

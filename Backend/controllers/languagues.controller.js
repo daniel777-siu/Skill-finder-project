@@ -23,3 +23,11 @@ exports.userLanguagues = (req,res) =>{
         res.json(results);
     });
 };
+
+exports.quitLanguague = (req, res) =>{
+    const data = req.body;
+    client.quitLanguague(data, (err) => {
+        if (err) return res.status(500).json({error : err.message});
+        res.json({message : 'Usuario eliminado correctamente'});
+    })
+}
